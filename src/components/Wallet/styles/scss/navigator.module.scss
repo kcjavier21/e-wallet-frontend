@@ -1,0 +1,19 @@
+@import '../../../../styles/scss/mixins';
+@import '../../../../styles/scss/variables';
+
+.navigator {
+  @include add-outline;
+  text-align: center;
+
+  li {
+    @include add-outline;
+    display: inline;
+    margin: 0 16px;
+    color: blue;
+
+    a {
+      @include add-outline;
+      text-decoration: none;
+    }
+  }
+}

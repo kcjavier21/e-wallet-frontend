@@ -1,0 +1,150 @@
+@import './variables';
+
+@mixin add-testing-border() {
+  border-color: rgb(255, 255, 255);
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+}
+
+@mixin add-outline() {
+  outline: #131313 solid 0.2px;
+}
+
+@mixin add-border($type, $width, $color, $radius) {
+  border-color: $color;
+  border-radius: $radius;
+  border-style: $type;
+  border-width: $width;
+}
+
+@mixin center() {
+  justify-self: center;
+  margin: 0 auto;
+  text-align: center;
+}
+
+@mixin vertically-centered() {
+  margin: 0 auto;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: 200ms;
+}
+
+@mixin absolutely-centered {
+  left: 0;
+  margin: auto;
+  right: 0;
+  text-align: center;
+  z-index: 1;
+}
+
+@mixin custom-scrollbar {
+  &::-webkit-scrollbar {
+    //   @include add-outline;
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgb(195, 195, 195);
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgb(113, 113, 113);
+  }
+}
+
+// ===== Breakpoints / Viewpoints =====
+
+@mixin twoKHD {
+  @media (min-width: 2160px) {
+    @content;
+  }
+}
+
+@mixin fullHD {
+  @media (max-width: 1920px) {
+    @content;
+  }
+}
+
+@mixin HD {
+  @media (max-width: 1440px) {
+    @content;
+  }
+}
+
+@mixin iMac {
+  @media (max-width: 1280px) {
+    @content;
+  }
+}
+
+@mixin medium {
+  @media (max-width: 1024px) {
+    @content;
+  }
+}
+
+@mixin iPad-pro-12 {
+  @media (max-width: 1030px) {
+    @content;
+  }
+}
+
+@mixin iPad-pro-11 {
+  @media (max-width: 834px) and (min-height: 1194) {
+    @content;
+  }
+}
+
+@mixin iPad-mini {
+  @media (max-width: 768px) and (min-height: 1194px) {
+    @content;
+  }
+}
+
+@mixin surface-duo {
+  @media (min-width: 530px) and (max-height: 730px) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (max-width: 820px) {
+    @content;
+  }
+}
+
+@mixin small-tablet {
+  @media (max-width: 680px) {
+    @content;
+  }
+}
+
+@mixin large-mobile {
+  @media (max-width: 542px) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @media (max-width: 414px) {
+    @content;
+  }
+}
+
+@mixin small-mobile {
+  @media (max-width: 320px) {
+    @content;
+  }
+}
+
+@mixin galaxy-fold {
+  @media (max-width: 285px) and (max-height: 655px) {
+    @content;
+  }
+}

@@ -1,0 +1,9 @@
+@import '../../../../styles/scss/mixins';
+@import '../../../../styles/scss/variables';
+
+.topbar {
+  display: fixed;
+  width: 100%;
+  height: 100px;
+  background: $blue;
+}

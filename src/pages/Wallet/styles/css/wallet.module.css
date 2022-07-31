@@ -1,0 +1,19 @@
+.wallet {
+  outline: #131313 solid 0.2px;
+  margin: 0 auto;
+}
+
+.wallet h1 {
+  outline: #131313 solid 0.2px;
+  font-size: 48px;
+  margin: 0;
+  text-align: center;
+}
+
+.wallet p {
+  outline: #131313 solid 0.2px;
+  text-align: center;
+  font-size: 28px;
+  margin: 0;
+}
+/*# sourceMappingURL=wallet.module.css.map */

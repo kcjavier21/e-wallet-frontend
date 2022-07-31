@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "1001",
+    "type": "Sent",
+    "doneBy": "0000",
+    "doneWith": "0001",
+    "amount": 100,
+    "message": "Hello!",
+    "date": 1659233867
+  },
+  {
+    "_id": "1002",
+    "type": "Received",
+    "doneBy": "0001",
+    "doneWith": "0000",
+    "amount": 100,
+    "message": "Hello!",
+    "date": 1659233867
+  }
+]

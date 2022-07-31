@@ -1,0 +1,12 @@
+{
+    "version": 3,
+    "mappings": "AAGA,AAAA,UAAU,CAAC;ECOT,OAAO,EAAE,mBAAmB;EDL5B,UAAU,EAAE,MAAM;CAanB;;AAfD,AAIE,UAJQ,CAIR,EAAE,CAAC;ECGH,OAAO,EAAE,mBAAmB;EDD1B,OAAO,EAAE,MAAM;EACf,MAAM,EAAE,MAAM;EACd,KAAK,EAAE,IAAI;CAMZ;;AAdH,AAUI,UAVM,CAIR,EAAE,CAMA,CAAC,CAAC;ECHJ,OAAO,EAAE,mBAAmB;EDKxB,eAAe,EAAE,IAAI;CACtB",
+    "sources": [
+        "../scss/navigator.module.scss",
+        "../../../../styles/scss/_mixins.scss",
+        "../../../../styles/scss/_variables.scss",
+        "../../../../styles/scss/_variables.scss"
+    ],
+    "names": [],
+    "file": "navigator.module.css"
+}

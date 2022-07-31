@@ -1,0 +1,21 @@
+@import '../../../../styles/scss/mixins';
+@import '../../../../styles/scss/variables';
+
+.wallet {
+  @include add-outline;
+  margin: 0 auto;
+
+  h1 {
+    @include add-outline;
+    font-size: 48px;
+    margin: 0;
+    text-align: center;
+  }
+
+  p {
+    @include add-outline;
+    text-align: center;
+    font-size: 28px;
+    margin: 0;
+  }
+}
