@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import CssBaseline from '@mui/material/CssBaseline'
 import Container from '@mui/material/Container'
 
-const NotFound = () => {
+const UnauthorizedDisplay = () => {
   return (
     <>
       <CssBaseline />
@@ -19,10 +19,10 @@ const NotFound = () => {
         >
           Go back
         </NavLink>
-        <h1 style={{ textAlign: 'left' }}>Page Not Found</h1>
+        <h1 style={{ textAlign: 'left' }}>You are unauthorized to view this page</h1>
       </Container>
     </>
   )
 }
 
-export default NotFound
+export default UnauthorizedDisplay

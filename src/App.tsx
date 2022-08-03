@@ -1,12 +1,14 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import './App.css'
-import Topbar from './components/Topbar'
-import Login from './pages/Login'
-import Wallet from './pages/Wallet'
-import Send from './pages/Send'
-import Request from './pages/Request'
-import Transactions from './pages/Transactions'
-import { useAuthContext } from './hooks/useAuthContext'
+import AuthVerify from 'src/components/AuthVerify'
+import Topbar from 'src/components/Topbar'
+import Login from 'src/pages/Login'
+import Wallet from 'src/pages/Wallet'
+import Send from 'src/pages/Send'
+import Request from 'src/pages/Request'
+import Transactions from 'src/pages/Transactions'
+import NotFound from 'src/pages/NotFound'
+import { useAuthContext } from 'src/hooks/useAuthContext'
 
 function App() {
   const { user } = useAuthContext()
@@ -15,27 +17,21 @@ function App() {
     <div className="App">
       <Topbar />
       <BrowserRouter>
+        <AuthVerify />
         <Routes>
-          {user ? renderRoutesWhenLoggedIn() : renderRoutesWhenLoggedOut()}
+          {user ? (
+            <Route path="/" element={<Wallet />} />
+          ) : (
+            <Route path="/" element={<Login />} />
+          )}
+          <Route path="/send" element={<Send />} />
+          <Route path="/request" element={<Request />} />
+          <Route path="/transactions" element={<Transactions />} />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </div>
   )
-}
-
-const renderRoutesWhenLoggedIn = () => {
-  return (
-    <>
-      <Route path="/" element={<Wallet />} />
-      <Route path="/send" element={<Send />} />
-      <Route path="/request" element={<Request />} />
-      <Route path="/transactions" element={<Transactions />} />
-    </>
-  )
-}
-
-const renderRoutesWhenLoggedOut = () => {
-  return <Route path="/" element={<Login />} />
 }
 
 export default App

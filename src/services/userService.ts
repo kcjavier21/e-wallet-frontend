@@ -18,18 +18,18 @@ export const loginUser = async ({ emailOrPhone, password }: any) => {
   return res
 }
 
-export const getCurrentUser = async (jwt: string) => {
+export const getCurrentUser = async (authToken: string) => {
   return await http.get(`${usersApiEndpoint}/me`, {
     headers: {
-      'x-auth-token': jwt,
+      'x-auth-token': authToken,
     },
   })
 }
 
-export const getUserById = async (userId: string, jwt: string) => {
+export const getUserById = async (userId: string, authToken: string) => {
   return await http.get(`${usersApiEndpoint}/user-id=${userId}`, {
     headers: {
-      'x-auth-token': jwt,
+      'x-auth-token': authToken,
     },
   })
 }

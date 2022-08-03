@@ -4,6 +4,12 @@ export interface Transaction {
   doneBy: string
   doneWith: string
   amount: number
-  message: string
+  message?: string
   date: number
+}
+
+export interface SendMoneyInput {
+  emailOrPhone: string
+  amount: number
+  message?: string
 }

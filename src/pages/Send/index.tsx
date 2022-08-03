@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react'
+import { ReactElement, useState, FormEvent, ChangeEvent } from 'react'
 import { NavLink } from 'react-router-dom'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
@@ -7,18 +7,33 @@ import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import Button from '@mui/material/Button'
 import SendIcon from '@mui/icons-material/Send'
+import Unauthorized from 'src/components/Unauthorized'
+import { useAuthContext } from 'src/hooks/useAuthContext'
+import { sendMoney } from 'src/services/transactionService'
+import { SendMoneyInput } from 'src/types/transaction'
 
 const SendMoney = (): ReactElement => {
-  const [data, setData] = useState({ emailOrPhone: '', amount: 0, message: '' })
+  const { user } = useAuthContext()
 
-  const handleChange = (e: any) => {
-    setData({ ...data, [e.target.name]: e.target.value })
+  const [data, setData] = useState<SendMoneyInput>({
+    emailOrPhone: '',
+    amount: 0,
+    message: '',
+  })
+
+  const handleChange = (e: ChangeEvent) => {
+    const { name, value } = e.target as HTMLInputElement
+    if (name === 'amount') setData({ ...data, [name]: parseInt(value) })
+    else setData({ ...data, [name]: value })
   }
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
-    console.log(data)
+    const authToken = localStorage.getItem('authToken') || ''
+    await sendMoney(data, authToken)
   }
+
+  if (!user) return <Unauthorized />
 
   return (
     <>

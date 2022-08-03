@@ -1,16 +1,10 @@
-import { useState } from 'react'
 import { useAuthContext } from './useAuthContext'
 import { loginUser, getCurrentUser } from '../services/userService'
 
 export const useLogin = () => {
-  const [error, setError] = useState(null)
-  const [isPending, setIsPending] = useState<boolean>(false)
-  const { state, dispatch } = useAuthContext()
+  const { dispatch } = useAuthContext()
 
   const login = async (emailOrPhone: string, password: string) => {
-    setError(null)
-    setIsPending(true)
-
     try {
       let res = await loginUser({ emailOrPhone, password })
 
@@ -20,16 +14,18 @@ export const useLogin = () => {
       localStorage.setItem('authToken', jwt)
 
       const { data: user } = await getCurrentUser(jwt)
-      if (!user ) throw new Error('Could not complete login')
-      delete user.password
+      if (!user) throw new Error('Could not complete login')
       
+      delete user.password
+      delete res.data.money
+
       dispatch({ type: 'LOGIN', payload: user })
+
+      window.location.reload()
     } catch (err: any) {
-      setIsPending(false)
-      setError(err.message)
       console.log(err.message)
     }
   }
 
-  return { error, isPending, login }
+  return { login }
 }
