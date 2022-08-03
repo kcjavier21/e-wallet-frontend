@@ -4,22 +4,12 @@ import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import TextField from '@mui/material/TextField'
-import InputAdornment from '@mui/material/InputAdornment'
 import Button from '@mui/material/Button'
-import SendIcon from '@mui/icons-material/Send'
+import { useLogin } from '../../hooks/useLogin'
 
-interface RequestData {
-  emailOrPhone: string
-  amount: number
-  message: string
-}
-
-const RequestMoney = (): ReactElement => {
-  const [data, setData] = useState<RequestData>({
-    emailOrPhone: '',
-    amount: 0,
-    message: '',
-  })
+const Login = (): ReactElement => {
+  const { login } = useLogin()
+  const [data, setData] = useState({ emailOrPhone: '', password: '' })
 
   const handleChange = (e: any) => {
     setData({ ...data, [e.target.name]: e.target.value })
@@ -27,7 +17,7 @@ const RequestMoney = (): ReactElement => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault()
-    console.log(data)
+    login(data.emailOrPhone, data.password)
   }
 
   return (
@@ -40,17 +30,18 @@ const RequestMoney = (): ReactElement => {
             color: '#1D1D1D',
             marginTop: '24px',
             display: 'inline-block',
+            textAlign: 'left',
           }}
           to="/"
         >
           Go back
         </NavLink>
-        <h1>Request Money</h1>
+        <h1 style={{ textAlign: 'left' }}>Login</h1>
         <Box>
           <form onSubmit={handleSubmit}>
             <TextField
               sx={{ width: '360px', mb: '12px' }}
-              id="outlined-basic"
+              className="outlined-basic"
               label="Email or Phone number"
               variant="outlined"
               name="emailOrPhone"
@@ -59,31 +50,16 @@ const RequestMoney = (): ReactElement => {
             <br />
             <TextField
               sx={{ width: '360px', mb: '12px' }}
-              id="outlined-basic"
-              label="Amount"
-              type="number"
+              className="outlined-basic"
+              label="Password"
               variant="outlined"
-              name="amount"
-              onChange={handleChange}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">$</InputAdornment>
-                ),
-              }}
-            />
-            <br />
-            <TextField
-              placeholder="MultiLine with rows: 2 and rowsMax: 4"
-              sx={{ width: '360px', mb: '12px' }}
-              multiline
-              rows={8}
-              name="message"
-              label="Message"
+              name="password"
+              type="password"
               onChange={handleChange}
             />
             <br />
-            <Button type="submit" variant="contained" startIcon={<SendIcon />}>
-              Send Request
+            <Button type="submit" variant="contained">
+              Login
             </Button>
           </form>
         </Box>
@@ -92,4 +68,4 @@ const RequestMoney = (): ReactElement => {
   )
 }
 
-export default RequestMoney
+export default Login

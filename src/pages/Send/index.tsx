@@ -23,20 +23,20 @@ const SendMoney = (): ReactElement => {
   return (
     <>
       <CssBaseline />
-      <Container maxWidth="xs">
+      <Container maxWidth="xs" sx={{ textAlign: 'left' }}>
         <NavLink
           style={{
             textDecoration: 'underline',
             color: '#1D1D1D',
             marginTop: '24px',
             display: 'inline-block',
-            
+            textAlign: 'left',
           }}
           to="/"
         >
           Go back
         </NavLink>
-        <h1>Send Money</h1>
+        <h1 style={{ textAlign: 'left' }}>Send Money</h1>
         <Box>
           <form onSubmit={handleSubmit}>
             <TextField
