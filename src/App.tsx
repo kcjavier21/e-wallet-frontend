@@ -6,12 +6,13 @@ import Login from 'src/pages/Login'
 import Wallet from 'src/pages/Wallet'
 import Send from 'src/pages/Send'
 import Request from 'src/pages/Request'
+import GrantRequest from 'src/pages/GrantRequest'
 import Transactions from 'src/pages/Transactions'
 import NotFound from 'src/pages/NotFound'
 import { useAuthContext } from 'src/hooks/useAuthContext'
 
 function App() {
-  const { user } = useAuthContext()
+  const { isLoggedIn, authIsReady } = useAuthContext()
 
   return (
     <div className="App">
@@ -19,14 +20,15 @@ function App() {
       <BrowserRouter>
         <AuthVerify />
         <Routes>
-          {user ? (
-            <Route path="/" element={<Wallet />} />
+          {isLoggedIn ? (
+            <Route path="/" element={<Wallet authIsReady={authIsReady} />} />
           ) : (
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Login authIsReady={authIsReady} />} />
           )}
-          <Route path="/send" element={<Send />} />
-          <Route path="/request" element={<Request />} />
-          <Route path="/transactions" element={<Transactions />} />
+          <Route path="/send" element={<Send isLoggedIn={isLoggedIn} />} />
+          <Route path="/request" element={<Request isLoggedIn={isLoggedIn} />} />
+          <Route path="/request/:requestId" element={<GrantRequest isLoggedIn={isLoggedIn} />} />
+          <Route path="/transactions" element={<Transactions isLoggedIn={isLoggedIn} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

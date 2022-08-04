@@ -2,17 +2,18 @@
 @import '../../../../styles/scss/variables';
 
 .navigator {
-  @include add-outline;
+  // @include add-outline;
   text-align: center;
+  padding: 0;
 
   li {
-    @include add-outline;
+    // @include add-outline;
     display: inline;
     margin: 0 16px;
     color: blue;
 
     a {
-      @include add-outline;
+      // @include add-outline;
       text-decoration: none;
     }
   }

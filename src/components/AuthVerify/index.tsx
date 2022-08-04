@@ -3,30 +3,30 @@ import { useLocation } from 'react-router-dom'
 import { useAuthContext } from 'src/hooks/useAuthContext'
 import jwtDecode from 'jwt-decode'
 import { toast } from 'react-toastify'
+import { DispatchArgument, DecodedAuthToken } from 'src/types/auth'
 import '../../../node_modules/react-toastify/dist/ReactToastify.css'
 
-const removeTokenAndGoBackHome = () => {
-  setTimeout(() => {
-    localStorage.removeItem('authToken')
-    window.location.pathname = '/'
-  }, 5000)
+export const removeTokenAndGoBackHome = () => {
+  localStorage.removeItem('authToken')
+  window.location.pathname = '/'
 }
 
 export const checkIfTokenIsExpired = async (
   authToken: string,
-  dispatch: any
+  dispatch: (state: DispatchArgument) => void
 ) => {
   try {
-    const decoded: any = jwtDecode(authToken)
+    const decoded: DecodedAuthToken = jwtDecode(authToken)
 
     if (decoded.exp - Date.now() / 1000 <= 0) {
       toast.error('Token expired! Please, log in again.')
-      dispatch({ type: 'LOGOUT' })
-      removeTokenAndGoBackHome()
+      throw new Error('Token expired! Please, log in again.')
     }
   } catch {
     dispatch({ type: 'LOGOUT' })
-    removeTokenAndGoBackHome()
+    setTimeout(() => {
+      removeTokenAndGoBackHome()
+    }, 5000)
   }
 }
 

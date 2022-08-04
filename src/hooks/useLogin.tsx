@@ -6,22 +6,20 @@ export const useLogin = () => {
 
   const login = async (emailOrPhone: string, password: string) => {
     try {
-      let res = await loginUser({ emailOrPhone, password })
+      const res = await loginUser({ emailOrPhone, password })
 
       if (!res) throw new Error('Could not complete login')
-      const jwt = res.data
+      const authToken = res.data
 
-      localStorage.setItem('authToken', jwt)
+      localStorage.setItem('authToken', authToken)
 
-      const { data: user } = await getCurrentUser(jwt)
+      const user = await getCurrentUser(authToken)
       if (!user) throw new Error('Could not complete login')
-      
+
       delete user.password
       delete res.data.money
 
       dispatch({ type: 'LOGIN', payload: user })
-
-      window.location.reload()
     } catch (err: any) {
       console.log(err.message)
     }

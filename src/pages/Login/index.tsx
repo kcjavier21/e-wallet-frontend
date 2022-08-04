@@ -6,7 +6,11 @@ import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 import { useLogin } from '../../hooks/useLogin'
 
-const Login = (): ReactElement => {
+type PropTypes = {
+  authIsReady: boolean
+}
+
+const Login = ({ authIsReady }: PropTypes): ReactElement => {
   const { login } = useLogin()
   const [data, setData] = useState({ emailOrPhone: '', password: '' })
 
@@ -18,6 +22,8 @@ const Login = (): ReactElement => {
     e.preventDefault()
     login(data.emailOrPhone, data.password)
   }
+
+  if (!authIsReady) return <></>
 
   return (
     <>

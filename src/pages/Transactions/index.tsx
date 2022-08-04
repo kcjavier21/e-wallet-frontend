@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
 import moment from 'moment'
 import Container from '@mui/material/Container'
 import Table from '@mui/material/Table'
@@ -10,13 +9,16 @@ import TableHead from '@mui/material/TableHead'
 import TableRow from '@mui/material/TableRow'
 import Paper from '@mui/material/Paper'
 import Unauthorized from 'src/components/Unauthorized'
-import { useAuthContext } from 'src/hooks/useAuthContext'
+import Heading from 'src/components/Heading'
 import { getTransactions } from 'src/services/transactionService'
 import { getUserById } from 'src/services/userService'
 import { Transaction } from 'src/types/transaction'
 
-const Transactions = () => {
-  const { user } = useAuthContext()
+type PropTypes = {
+  isLoggedIn: boolean
+}
+
+const Transactions = ({ isLoggedIn }: PropTypes) => {
   const [transactions, setTransactions] = useState<Transaction[]>([])
 
   useEffect(() => {
@@ -28,19 +30,19 @@ const Transactions = () => {
     const authToken: string = localStorage?.getItem('authToken') || ''
     const fetchedTransactions: Transaction[] = await getTransactions(authToken)
 
-    for (const transaction of fetchedTransactions) {
-      const res = await getUserById(transaction.doneWith, authToken)
+    if (!fetchedTransactions) return
 
-      if (res)
-        transaction.doneWith = `${res.data.firstName} ${res.data.lastName}`
-      else
-        transaction.doneWith = 'User not found'
+    for (const transaction of fetchedTransactions) {
+      const user = await getUserById(transaction.doneWith, authToken)
+
+      if (user) transaction.doneWith = `${user.firstName} ${user.lastName}`
+      else transaction.doneWith = 'User not found'
     }
 
     setTransactions(fetchedTransactions)
   }
 
-  if (!user) return <Unauthorized />
+  if (!isLoggedIn) return <Unauthorized />
 
   if (!transactions) {
     return <></>
@@ -48,19 +50,7 @@ const Transactions = () => {
 
   return (
     <Container maxWidth="md" sx={{ textAlign: 'left' }}>
-      <NavLink
-        style={{
-          textDecoration: 'underline',
-          color: '#1D1D1D',
-          marginTop: '24px',
-          display: 'inline-block',
-          textAlign: 'left',
-        }}
-        to="/"
-      >
-        Go back
-      </NavLink>
-      <h1>Transactions</h1>
+      <Heading title="Transactions" />
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

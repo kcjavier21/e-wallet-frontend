@@ -1,17 +1,15 @@
 .navigator {
-  outline: #131313 solid 0.2px;
   text-align: center;
+  padding: 0;
 }
 
 .navigator li {
-  outline: #131313 solid 0.2px;
   display: inline;
   margin: 0 16px;
   color: blue;
 }
 
 .navigator li a {
-  outline: #131313 solid 0.2px;
   text-decoration: none;
 }
 /*# sourceMappingURL=navigator.module.css.map */

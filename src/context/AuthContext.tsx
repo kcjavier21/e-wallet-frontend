@@ -10,9 +10,9 @@ toast.configure()
 export const authReducer = (state: any, action: any) => {
   switch (action.type) {
     case 'LOGIN':
-      return { ...state, user: action.data, isLoggedIn: true }
+      return { ...state, user: action.data, isLoggedIn: true, authIsReady: true }
     case 'LOGOUT':
-      return { ...state, user: null, isLoggedIn: false }
+      return { ...state, user: null, isLoggedIn: false, authIsReady: true }
     default:
       return state
   }
@@ -22,21 +22,22 @@ const setAuthState = async (dispatch: any) => {
   const authToken = localStorage.getItem('authToken')
   if (!authToken) return
 
-  const res = await getCurrentUser(authToken)
-  if (!res) return
+  const user = await getCurrentUser(authToken)
+  if (!user) return
 
   checkIfTokenIsExpired(authToken, dispatch)
 
-  delete res.data.password
-  delete res.data.money
+  delete user.password
+  delete user.money
 
-  dispatch({ type: 'LOGIN', data: res.data })
+  dispatch({ type: 'LOGIN', data: user })
 }
 
 export const AuthContextProvider = ({ children }: any) => {
   const [state, dispatch] = useReducer(authReducer, {
     user: null,
     isLoggedIn: false,
+    authIsReady: false,
   })
 
   useEffect(() => {

@@ -8,7 +8,7 @@ export interface Transaction {
   date: number
 }
 
-export interface SendMoneyInput {
+export interface SendOrRequestMoneyInput {
   emailOrPhone: string
   amount: number
   message?: string

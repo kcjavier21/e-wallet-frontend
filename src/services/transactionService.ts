@@ -1,7 +1,6 @@
 import http from './httpService'
 import { toast } from 'react-toastify'
-import { SendMoneyInput } from 'src/types/transaction'
-
+import { SendOrRequestMoneyInput } from 'src/types/transaction'
 import '../../node_modules/react-toastify/dist/ReactToastify.css'
 
 toast.configure()
@@ -15,13 +14,28 @@ export const getTransactions = async (authToken: string) => {
         'x-auth-token': authToken,
       },
     })
+    
     return res.data
-  } catch (ex) {
-    return
+  } catch (ex: any) {
+    console.error(ex.response.data.error)
   }
 }
 
-export const sendMoney = async (data: SendMoneyInput, authToken: string) => {
+export const getTransaction = async (id: string, authToken: string) => {
+  try {
+    const res = await http.get(`${apiEndpoint}/${id}`, {
+      headers: {
+        'x-auth-token': authToken,
+      },
+    })
+    
+    return res.data
+  } catch (ex: any) {
+    console.error(ex.response.data.error)
+  }
+}
+
+export const sendMoney = async (data: SendOrRequestMoneyInput, authToken: string) => {
   try {
     await http.post(`${apiEndpoint}/send`, data, {
       headers: {
@@ -31,6 +45,20 @@ export const sendMoney = async (data: SendMoneyInput, authToken: string) => {
 
     toast.success('Money sent successfully!')
   } catch (ex: any) {
-    console.log(ex.response.data.error)
+    toast.error(ex.response.data.error)
+  }
+}
+
+export const requestMoney = async (data: SendOrRequestMoneyInput, authToken: string) => {
+  try {
+    await http.post(`${apiEndpoint}/request`, data, {
+      headers: {
+        'x-auth-token': authToken,
+      },
+    })
+
+    toast.success('Request sent successfully!')
+  } catch (ex: any) {
+    toast.error(ex.response.data.error)
   }
 }

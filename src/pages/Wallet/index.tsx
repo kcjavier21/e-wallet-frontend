@@ -6,31 +6,43 @@ import Navigator from '../../components/Wallet/Navigator'
 import styles from './styles/css/wallet.module.css'
 import { getCurrentUser } from 'src/services/userService'
 
-const fetchUserData = async (setMoney: any) => {
+const fetchAmountOfMoney = async (
+  setNameOfUser: (name: string) => void,
+  setMoney: (amount: number) => void,
+  setIsLoading: (isLoading: boolean) => void
+) => {
+  setIsLoading(true)
   const authToken = localStorage.getItem('authToken') || ''
-  const res = await getCurrentUser(authToken)
+  const user = await getCurrentUser(authToken)
 
-  if (!res) return
+  if (!user) return
 
-  setMoney(res.data.money)
+  setNameOfUser(`${user.firstName} ${user.lastName}`)
+  setMoney(user.money)
+  setIsLoading(false)
 }
 
-const Wallet = () => {
+type PropTypes = {
+  authIsReady: boolean
+}
+
+const Wallet = ({ authIsReady }: PropTypes) => {
   const [money, setMoney] = useState<number>(0)
+  const [nameOfUser, setNameOfUser] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    setIsLoading(true)
-    fetchUserData(setMoney)
-    setIsLoading(false)
+    fetchAmountOfMoney(setNameOfUser, setMoney, setIsLoading)
   }, [])
 
+  if (!authIsReady) return <></>
+  
   return (
     <>
       <CssBaseline />
       <Container maxWidth="lg">
         <Box className={styles.wallet}>
-          <h1>Wallet</h1>
+          <h1>{isLoading ? 'Loading...' : `${nameOfUser}'s Wallet`}</h1>
           <p>{isLoading ? 'Loading...' : `$ ${money}`}</p>
         </Box>
         <Navigator />

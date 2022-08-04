@@ -2,20 +2,21 @@
 @import '../../../../styles/scss/variables';
 
 .wallet {
-  @include add-outline;
+  // @include add-outline;
   margin: 0 auto;
 
   h1 {
-    @include add-outline;
-    font-size: 48px;
-    margin: 0;
+    // @include add-outline;
+    font-size: 36px;
+    margin-top: 48px;
+    margin-bottom: 0;
     text-align: center;
   }
 
   p {
-    @include add-outline;
+    // @include add-outline;
     text-align: center;
-    font-size: 28px;
+    font-size: 24px;
     margin: 0;
   }
 }
