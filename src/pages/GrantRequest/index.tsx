@@ -17,12 +17,13 @@ type PropTypes = {
 
 const fetchTransactionData = async (
   requestId: string,
-  setRequest: any,
-  setSender: any
+  setRequest: (request: Transaction) => void,
+  setSender: (request: User) => void
 ) => {
   const authToken = localStorage.getItem('authToken') || ''
 
   const request = await getTransaction(requestId, authToken)
+  console.log(request)
   if (!request) return
 
   const sender = await getUserById(request.doneBy, authToken)
@@ -46,7 +47,7 @@ const handleSubmit = async (email: string, amount: number) => {
 
   setTimeout(() => {
     window.location.pathname = '/'
-  }, 3000)
+  }, 5000)
 }
 
 const GrantRequest = ({ isLoggedIn }: PropTypes): ReactElement => {
@@ -58,8 +59,6 @@ const GrantRequest = ({ isLoggedIn }: PropTypes): ReactElement => {
   useEffect(() => {
     if (requestId) fetchTransactionData(requestId, setRequest, setSender)
   }, [requestId])
-
-  console.log(request)
 
   if (!isLoggedIn && !request) return <Unauthorized />
   if (request?.doneWith !== user?._id) return <Unauthorized />

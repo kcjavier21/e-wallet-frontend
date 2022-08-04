@@ -59,6 +59,6 @@ export const requestMoney = async (data: SendOrRequestMoneyInput, authToken: str
 
     toast.success('Request sent successfully!')
   } catch (ex: any) {
-    toast.error(ex.response.data.error)
+    console.log(ex)
   }
 }
