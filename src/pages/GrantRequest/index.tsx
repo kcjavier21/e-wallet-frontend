@@ -22,6 +22,8 @@ const fetchTransactionData = async (
 ) => {
   const authToken = localStorage.getItem('authToken') || ''
 
+  console.log(requestId)
+
   const request = await getTransaction(requestId, authToken)
   console.log(request)
   if (!request) return
