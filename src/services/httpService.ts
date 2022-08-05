@@ -10,19 +10,8 @@ axios.interceptors.response.use(
   },
   (error: any) => {
     const jsonError = error.toJSON()
-    console.log(jsonError)
-    console.log(error.response.data)
-    console.log(jsonError.status)
-
-    if (!jsonError.status) {
-      console.log('Unexpected Error!')
-      toast.error(jsonError.message)
-    }
-    // else {
-    //   if (typeof error.response.data.error === 'string') {
-    //       console.log(!error.response.data.error);
-    //       // toast.error(`${error.response.data.error}`);
-    // }
+    
+    if (!jsonError.status) toast.error(jsonError.message)
 
     return Promise.reject(error)
   }

@@ -14,10 +14,10 @@ export const getTransactions = async (authToken: string) => {
         'x-auth-token': authToken,
       },
     })
-    
+
     return res.data.reverse()
   } catch (ex: any) {
-    console.error(ex.response.data.error)
+    console.error(ex?.response?.data?.error)
   }
 }
 
@@ -28,14 +28,17 @@ export const getTransaction = async (id: string, authToken: string) => {
         'x-auth-token': authToken,
       },
     })
-    
+
     return res.data
   } catch (ex: any) {
-    console.error(ex.response.data.error)
+    console.error(ex?.response?.data?.error)
   }
 }
 
-export const sendMoney = async (data: SendOrRequestMoneyInput, authToken: string) => {
+export const sendMoney = async (
+  data: SendOrRequestMoneyInput,
+  authToken: string
+) => {
   try {
     await http.post(`${apiEndpoint}/send`, data, {
       headers: {
@@ -45,11 +48,14 @@ export const sendMoney = async (data: SendOrRequestMoneyInput, authToken: string
 
     toast.success('Money sent successfully!')
   } catch (ex: any) {
-    toast.error(ex.response.data.error)
+    toast.error(ex?.response?.data?.error)
   }
 }
 
-export const requestMoney = async (data: SendOrRequestMoneyInput, authToken: string) => {
+export const requestMoney = async (
+  data: SendOrRequestMoneyInput,
+  authToken: string
+) => {
   try {
     await http.post(`${apiEndpoint}/request`, data, {
       headers: {
@@ -59,6 +65,6 @@ export const requestMoney = async (data: SendOrRequestMoneyInput, authToken: str
 
     toast.success('Request sent successfully!')
   } catch (ex: any) {
-    toast.error(ex.response.data.error)
+    toast.error(ex?.response?.data?.error)
   }
 }

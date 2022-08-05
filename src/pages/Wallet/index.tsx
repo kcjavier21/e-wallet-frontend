@@ -2,9 +2,9 @@ import { useState, useEffect } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
-import Navigator from '../../components/Wallet/Navigator'
-import styles from './styles/css/wallet.module.css'
+import Navigator from 'src/components/Wallet/Navigator'
 import { getCurrentUser } from 'src/services/userService'
+import styles from './styles/css/wallet.module.css'
 
 const fetchAmountOfMoney = async (
   setNameOfUser: (name: string) => void,
@@ -12,6 +12,7 @@ const fetchAmountOfMoney = async (
   setIsLoading: (isLoading: boolean) => void
 ) => {
   setIsLoading(true)
+  
   const authToken = localStorage.getItem('authToken') || ''
   const user = await getCurrentUser(authToken)
 

@@ -1,8 +1,8 @@
 import { ReactElement, useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
-import { useAuthContext } from 'src/hooks/useAuthContext'
-import jwtDecode from 'jwt-decode'
 import { toast } from 'react-toastify'
+import jwtDecode from 'jwt-decode'
+import { useAuthContext } from 'src/hooks/useAuthContext'
 import { DispatchArgument, DecodedAuthToken } from 'src/types/auth'
 import '../../../node_modules/react-toastify/dist/ReactToastify.css'
 

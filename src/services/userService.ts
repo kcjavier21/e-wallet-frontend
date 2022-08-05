@@ -16,7 +16,7 @@ export const loginUser = async ({ emailOrPhone, password }: any) => {
 
     return res
   } catch (ex: any) {
-    toast.error(ex.response.data.error)
+    toast.error(ex?.response?.data?.error)
   }
 }
 
@@ -45,6 +45,6 @@ export const getUserById = async (userId: string, authToken: string) => {
 
     return res.data
   } catch (ex: any) {
-    console.error(ex.response.error)
+    console.error(ex?.response?.data?.error)
   }
 }
