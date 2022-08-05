@@ -2,7 +2,7 @@ import { ReactElement, FormEvent, ChangeEvent, useState } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
-import SendAndRequest from './Form'
+import Form from './Form'
 import Heading from 'src/components/Heading'
 import { SendOrRequestMoneyInput } from 'src/types/transaction'
 
@@ -36,7 +36,7 @@ const SendOrRequest = ({ title, httpFunction }: PropTypes): ReactElement => {
       <Container maxWidth="xs" sx={{ textAlign: 'left' }}>
         <Heading title={title} />
         <Box>
-          <SendAndRequest
+          <Form
             handleChange={handleChange.bind(null)}
             handleSubmit={handleSubmit.bind(null)}
           />

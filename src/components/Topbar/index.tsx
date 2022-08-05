@@ -1,10 +1,12 @@
 import Button from '@mui/material/Button'
 import styles from './styles/css/topbar.module.css'
-import { useAuthContext } from 'src/hooks/useAuthContext'
 import { useLogout } from 'src/hooks/useLogout'
 
-const Topbar = () => {
-  const { isLoggedIn } = useAuthContext()
+type PropTypes = {
+  isLoggedIn: boolean
+}
+
+const Topbar = ({ isLoggedIn }: PropTypes) => {
   const { logout } = useLogout()
 
   return (

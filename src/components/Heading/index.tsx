@@ -5,7 +5,7 @@ type PropTypes = {
   title: string
 }
 
-const GoBackBtn = ({ title }: PropTypes): ReactElement => {
+const Heading = ({ title }: PropTypes): ReactElement => {
   return (
     <>
       <NavLink
@@ -20,9 +20,9 @@ const GoBackBtn = ({ title }: PropTypes): ReactElement => {
       >
         Go back
       </NavLink>
-      <h1>{title}</h1>
+      <h1 data-testid="title">{title}</h1>
     </>
   )
 }
 
-export default GoBackBtn
+export default Heading

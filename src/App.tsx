@@ -16,7 +16,7 @@ function App() {
 
   return (
     <div className="App">
-      <Topbar />
+      <Topbar isLoggedIn={isLoggedIn} />
       <BrowserRouter>
         <AuthVerify />
         <Routes>
