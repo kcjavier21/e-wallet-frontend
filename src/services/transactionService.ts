@@ -15,7 +15,7 @@ export const getTransactions = async (authToken: string) => {
       },
     })
     
-    return res.data
+    return res.data.reverse()
   } catch (ex: any) {
     console.error(ex.response.data.error)
   }

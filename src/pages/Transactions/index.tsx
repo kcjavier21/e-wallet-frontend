@@ -20,13 +20,15 @@ type PropTypes = {
 
 const Transactions = ({ isLoggedIn }: PropTypes) => {
   const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [isLoading, setIsLoading] = useState<Boolean>(true)
 
   useEffect(() => {
-    setTransactions([])
     fetchTransactionData()
   }, [])
 
   const fetchTransactionData = async () => {
+    setIsLoading(true)
+
     const authToken: string = localStorage?.getItem('authToken') || ''
     const fetchedTransactions: Transaction[] = await getTransactions(authToken)
 
@@ -40,13 +42,11 @@ const Transactions = ({ isLoggedIn }: PropTypes) => {
     }
 
     setTransactions(fetchedTransactions)
+    setIsLoading(false)
   }
 
+  if (isLoading) return <h1>Loading...</h1>
   if (!isLoggedIn) return <Unauthorized />
-
-  if (!transactions) {
-    return <></>
-  }
 
   return (
     <Container maxWidth="md" sx={{ textAlign: 'left' }}>

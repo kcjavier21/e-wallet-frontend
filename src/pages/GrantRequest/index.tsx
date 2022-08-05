@@ -17,9 +17,12 @@ type PropTypes = {
 
 const fetchTransactionData = async (
   requestId: string,
+  setIsLoading: (isLoading: Boolean) => void,
   setRequest: (request: Transaction) => void,
   setSender: (request: User) => void
 ) => {
+  setIsLoading(true)
+
   const authToken = localStorage.getItem('authToken') || ''
 
   console.log(requestId)
@@ -33,6 +36,7 @@ const fetchTransactionData = async (
 
   setRequest(request)
   setSender(sender)
+  setIsLoading(false)
 }
 
 const handleSubmit = async (email: string, amount: number) => {
@@ -55,13 +59,16 @@ const handleSubmit = async (email: string, amount: number) => {
 const GrantRequest = ({ isLoggedIn }: PropTypes): ReactElement => {
   const { requestId } = useParams()
   const { user } = useAuthContext()
+  const [isLoading, setIsLoading] = useState<Boolean>(true)
   const [request, setRequest] = useState<Transaction | null>(null)
   const [sender, setSender] = useState<User | null>(null)
 
   useEffect(() => {
-    if (requestId) fetchTransactionData(requestId, setRequest, setSender)
+    if (requestId)
+      fetchTransactionData(requestId, setIsLoading, setRequest, setSender)
   }, [requestId])
 
+  if (isLoading) return <h1>Loading...</h1>
   if (!isLoggedIn && !request) return <Unauthorized />
   if (request?.doneWith !== user?._id) return <Unauthorized />
 
